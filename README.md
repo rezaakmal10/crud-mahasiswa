@@ -1,7 +1,7 @@
 # CRUD Data Mahasiswa
 
 Aplikasi web sederhana untuk mengelola data mahasiswa (Create, Read, Update, Delete).
-UTS Lab Pemrograman, Program Studi Bisnis Digital, Universitas Diponegoro.
+UTS Lab Pemrograman Reza Akmal Wibowo, Program Studi Bisnis Digital, Universitas Diponegoro.
 
 ## Teknologi
 - Python + Flask
