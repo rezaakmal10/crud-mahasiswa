@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Tambah Mahasiswa</h2>
+<h2>{{ 'Edit Mahasiswa' if edit else 'Tambah Mahasiswa' }}</h2>
 <form method="POST">
     <label>NIM
+        {% if edit %}
+        <input type="text" name="nim" value="{{ nim }}" readonly>
+        {% else %}
         <input type="text" name="nim" value="{{ data.get('nim', '') }}">
+        {% endif %}
     </label>
     <label>Nama
         <input type="text" name="nama" value="{{ data.get('nama', '') }}">

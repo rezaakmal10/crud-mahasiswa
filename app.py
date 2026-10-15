@@ -74,6 +74,47 @@ def tambah():
 
     return render_template("form.html", data={})
 
+@app.route("/edit/<int:nim>", methods=["GET", "POST"])
+def edit(nim):
+    conn = get_db()
+    mhs = conn.execute("SELECT * FROM mahasiswa WHERE nim = ?", (nim,)).fetchone()
+    if mhs is None:
+        conn.close()
+        flash("Mahasiswa tidak ditemukan.", "error")
+        return redirect(url_for("index"))
 
+    if request.method == "POST":
+        nama = request.form.get("nama", "").strip()
+        program_studi = request.form.get("program_studi", "").strip()
+        angkatan = request.form.get("angkatan", "").strip()
+        ipk = request.form.get("ipk", "").strip()
+
+        error = validasi(str(nim), nama, program_studi, angkatan, ipk)
+        if error:
+            conn.close()
+            flash(error, "error")
+            return render_template("form.html", data=request.form, edit=True, nim=nim)
+
+        conn.execute(
+            "UPDATE mahasiswa SET nama = ?, program_studi = ?, angkatan = ?, ipk = ? WHERE nim = ?",
+            (nama, program_studi, int(angkatan), float(ipk.replace(",", ".")), nim),
+        )
+        conn.commit()
+        conn.close()
+        flash("Data mahasiswa berhasil diubah.", "success")
+        return redirect(url_for("index"))
+
+    conn.close()
+    return render_template("form.html", data=dict(mhs), edit=True, nim=nim)
+
+
+@app.route("/hapus/<int:nim>", methods=["POST"])
+def hapus(nim):
+    conn = get_db()
+    conn.execute("DELETE FROM mahasiswa WHERE nim = ?", (nim,))
+    conn.commit()
+    conn.close()
+    flash("Data mahasiswa berhasil dihapus.", "success")
+    return redirect(url_for("index"))
 if __name__ == "__main__":
     app.run(debug=True)
