@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Mahasiswa</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 15px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f0f0f0; }
+        .error { background: #ffd6d6; color: #a00; padding: 10px; margin: 10px 0; }
+        .success { background: #d6ffd6; color: #060; padding: 10px; margin: 10px 0; }
+        label { display: block; margin-top: 10px; }
+        input { padding: 6px; width: 300px; }
+        button, .btn { margin-top: 15px; padding: 8px 14px; }
+    </style>
+</head>
+<body>
+    <h1>Data Mahasiswa</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for kategori, pesan in messages %}
+            <div class="{{ kategori }}">{{ pesan }}</div>
+        {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>

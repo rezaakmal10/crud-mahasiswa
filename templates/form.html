@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tambah Mahasiswa</h2>
+<form method="POST">
+    <label>NIM
+        <input type="text" name="nim" value="{{ data.get('nim', '') }}">
+    </label>
+    <label>Nama
+        <input type="text" name="nama" value="{{ data.get('nama', '') }}">
+    </label>
+    <label>Program Studi
+        <input type="text" name="program_studi" value="{{ data.get('program_studi', '') }}">
+    </label>
+    <label>Angkatan
+        <input type="text" name="angkatan" value="{{ data.get('angkatan', '') }}">
+    </label>
+    <label>IPK
+        <input type="text" name="ipk" value="{{ data.get('ipk', '') }}">
+    </label>
+    <button type="submit">Simpan</button>
+    <a href="{{ url_for('index') }}">Batal</a>
+</form>
+{% endblock %}
